@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Let's Go Mainstream with Eta!</title>
+    <meta charset="utf-8">
+    <style>
+        @font-face {
+            font-family: 'Yanone Kaffeesatz';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Yanone Kaffeesatz Regular'), local('YanoneKaffeesatz-Regular'), url('fonts/YanoneKaffeesatz-Regular.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Droid Serif';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Droid Serif Regular'), local('DroidSerif-Regular'), url('fonts/DroidSerif-Regular.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Droid Serif';
+            font-style: normal;
+            font-weight: 700;
+            src: local('Droid Serif Bold'), local('DroidSerif-Bold'), url('fonts/DroidSerif-Bold.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Droid Serif';
+            font-style: italic;
+            font-weight: 400;
+            src: local('Droid Serif Italic'), local('DroidSerif-Italic'), url('fonts/DroidSerif-Italic.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Ubuntu Mono';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url('fonts/UbuntuMono-Regular.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Ubuntu Mono';
+            font-style: normal;
+            font-weight: 700;
+            src: local('Ubuntu Mono Bold'), local('UbuntuMono-Bold'), url('fonts/UbuntuMono-Bold.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Ubuntu Mono';
+            font-style: italic;
+            font-weight: 400;
+            src: local('Ubuntu Mono Italic'), local('UbuntuMono-Italic'), url('fonts/UbuntuMono-Italic.woff') format('woff');
+        }
+
+        body { font-family: 'Droid Serif'; }
+        h1, h2, h3 {
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: normal;
+        }
+        h1 {
+            text-align: center;
+        }
+        span.image-50 img {
+            width: 50%;
+            height: 50%;
+        }
+        span.image-90 img {
+            width: 90%;
+            height: 90%;
+        }
+        span.image-100 img {
+            width: 100%;
+            height: 100%;
+        }
+        .remark-code {
+            font-size: 30px;
+        }
+
+        .small-font .remark-code {
+            font-size: 20px;
+        }
+        .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono';}
+        .remark-inline-code {
+            background: #ffffff; 
+            color: #32bebe;
+            padding: 3px;
+        }
+        strong {
+            border-color: #ffffff;
+            border-style: solid;
+            border-width: 1px;
+            font-weight: 100;
+            padding: 7px;
+        }
+        .remark-slide-content{ background: #32bebe; color: #ffffff; }
+        .warning { color: white; background: #f44336; }
+        .ok { color: white; background: green; }
+        .remark-slide-content ul { margin-top: 50px;}
+        .remark-slide-content ul li { margin: 0 0 50px 0; font-size: 30px;}
+        .remark-slide-content img { width: 20%}
+        .remark-code-line-highlighted{ background-color: rgba(255, 255, 255, 0.2);}
+        code.haskell.hljs.remark-code{
+          border-radius: 6px;
+          padding: 30px;
+          box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+        }
+        code.scala.hljs.remark-code{
+          border-radius: 6px;
+          padding: 30px;
+          box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+        }
+        code.java.hljs.remark-code{
+          border-radius: 6px;
+          padding: 30px;
+          box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+        }
+    </style>
+  </head>
+  <body>
+      <textarea id="source">
+
+class: center, middle
+![Eta Logo](white.png)
+# Let's Go Mainstream with Eta!
+
+Rahul Muttineni
+
+CTO of TypeLead
+
+---
+
+# Project Overview
+
+--
+
+- Haskell Summer of Code
+  - GHCVM
+  - Edward Kmett
+
+--
+
+- TypeLead 
+  - Jyothsna "Jo"
+
+---
+
+
+class: middle
+
+# Thank you GHC Team!
+
+
+---
+
+# Eta Overview
+
+--
+
+- Fork of GHC
+
+--
+
+- Pure, lazy, statically typed functional language on JVM
+
+--
+
+- Compiles Haskell packages out of the box
+
+--
+
+- Strongly typed FFI
+
+--
+
+- Focused on industrial use
+
+---
+
+class: middle
+
+# Pursue success, at minimum cost
+
+---
+
+# Language
+
+--
+
+- GHC 7.10.3
+
+--
+
+- JavaFFI
+
+--
+
+- Few GHC 8 Language Extensions
+
+--
+
+- Backpack
+
+---
+
+# Compiler
+
+--
+
+- Almost same pipeline as GHC 
+
+--
+
+- Generates Java bytecode from STG
+
+--
+
+- Java-specific conveniences
+  - JAR file
+  - Uberjar
+
+---
+
+# REPL
+
+--
+
+- External process, `eta-serv`
+
+--
+
+- Uses JVM classloading
+
+--
+
+- Reuses codegen at -O0
+
+---
+
+# Etlas
+
+--
+
+- Fork of Cabal 2.0+
+
+--
+
+- Eta version management
+
+--
+
+- Patch management via [eta-hackage](https://github.com/typelead/eta-hackage)
+
+---
+
+layout: false
+class: center, middle
+
+# What does mainstream mean?
+
+---
+
+layout: false
+class: center, middle
+
+# "The ideas, attitudes, or activities that are shared by most people and regarded as normal or conventional." 
+
+-- Cambridge English Dictionary
+
+---
+
+layout: false
+class: center, middle
+
+# How does a software technology become mainstream?
+
+---
+
+layout: false
+class: center, middle
+
+# It should make it easier to solve real-world problems than the status quo.
+
+---
+
+layout: false
+class: center, middle
+
+# Strategy: Big Company Hat
+
+---
+
+# Guiding Principles
+
+--
+
+- User Experience
+
+--
+
+- Performance
+
+--
+
+- Safety
+
+---
+
+layout: true
+
+# User Experience
+
+---
+
+# The person developing software is a human, not a machine!
+
+---
+
+.image-100[.center[![Error](FunctionTypeMismatch.jpg)]]
+
+.center[Type Errors]
+
+---
+
+.image-90[.center[![Error](REPL1.jpg)]]
+
+.center[REPL]
+
+---
+
+.image-50[.center[![Error](REPL2.jpg)]]
+
+---
+
+layout: true
+
+# Performance
+        
+---
+
+--
+        
+- Fast developer feedback loop
+    - Reproducible Builds
+    - Backported REPL space leak fixes
+
+--
+        
+- Fast run-time
+        
+---
+
+layout: false
+        
+# Runtime System
+
+--
+
+- eta.runtime.*
+
+--
+
+- Closure
+  - evaluate
+  - enter
+
+--
+
+- Thunk or Value
+
+---
+        
+# Thunks
+        
+--
+
+- CAF
+        
+--
+
+- UpdatableThunk
+        
+--
+
+- SingleEntryThunk
+
+---
+
+# Values
+        
+--
+
+- DataCon
+        
+--
+
+- Function
+        
+--
+
+- PAP
+
+---
+        
+# Function Calls
+
+--
+
+- Correspond to Java method calls
+
+--
+
+- Static (mutually) tail recursive calls
+  - Compiled to loops
+        
+---
+
+# Opt-in Trampolining
+
+--
+
+- Trampolining by default is slow
+
+--
+
+- Fast exceptions
+
+--
+
+- Dynamic tail calls
+
+```haskell
+trampoline :: a -> a
+```
+
+---
+
+class: small-font
+
+# Example: Stacktrace
+
+```haskell
+...
+at eta.runtime.thunk.Thunk.handleExceptionSimple(Thunk.java:282)
+at eta.runtime.thunk.Thunk.handleException(Thunk.java:264)
+at eta.runtime.thunk.UpdatableThunk.evaluate(UpdatableThunk.java:21)
+at statistics.statistics.Regression$$wrnfAll$1.applyN(Regression.hs:-1)
+at statistics.statistics.Regression$sat$37.applyV(Regression.hs:136)
+at eta.runtime.exception.Exception.catch_(Exception.java:132)
+at statistics.statistics.Regression$sat$36.applyV(Regression.hs:-1)
+at eta.runtime.stg.Closures$EvalLazyIO.enter(Closures.java:125)
+at eta.runtime.stg.Capability.schedule(Capability.java:183)
+at eta.runtime.concurrent.WorkerThread.run(WorkerThread.java:16)
+```
+
+---
+
+# Concurrency
+
+--
+
+- No green threads
+
+--
+
+- Fibers
+
+---
+
+# Space Leaks
+
+- Converted to exceptions
+- StackOverflowError
+- Reference: [Detecting Space Leaks](http://neilmitchell.blogspot.com/2015/09/detecting-space-leaks.html)
+
+---
+
+# Safety
+
+- Handle problems upfront
+- Fearless Refactoring
+- Java Interop without sacrifice
+
+---
+
+layout: true
+
+# The Java Monad
+
+---
+
+--
+
+```haskell
+newtype IO a = 
+  IO (State# RealWorld ->
+       (# State# RealWorld, a #))
+```
+
+--
+
+```haskell
+newtype Java c a =
+   Java (Object# c -> (# Object# c, a #))
+```
+
+---
+
+layout: false
+
+# Primitive Object Type
+
+```haskell
+Object# :: * -> *
+```
+
+- Represents a raw Java object.
+
+- The argument is called the **tag type**.
+
+- `Object# c` can store store any raw Java object that is a subclass of `c`.
+
+---
+
+# Example: Tag Type
+
+```haskell
+data Iterable a =
+  Iterable (@java.lang.Iterable a)
+  deriving Class
+```
+
+---
+
+# Typeclass: Class
+
+```haskell
+class Class a where
+
+  unobj           ::         a -> Object# a
+
+  obj             :: Object# a ->         a
+```
+
+- Used for Java monadic combinators
+
+---
+
+layout: true
+
+# Example: Running the Java monad
+
+---
+
+```java
+public static void main(String[] args) {
+    ArrayList<Integer> list =
+        new ArrayList<Integer>();
+    populateArray(list, 10);
+}
+        
+public static void populateArray
+        (ArrayList<Integer> list, int n) {
+    for (int i = 0; i < n; i++)
+        list.add(i);
+    for (int i = 0; i < n; i++) {
+        System.out.println(list.get(i) * 5);
+    }
+}
+```
+
+---
+
+```haskell
+java :: (forall c. Java c a) -> IO a
+
+(<.>) :: (Class c) => c -> Java c a -> Java b a
+        
+io :: IO a -> Java c a
+```
+        
+---
+
+```haskell
+main :: IO ()
+main = java $ do
+  list <- newArrayList
+  list <.> populateArray 10
+
+populateArray :: Int
+              -> Java (ArrayList JInteger) ()
+populateArray n = do
+  forM_ range $ \i ->
+    add (newInteger i)
+  forM_ range $ \i -> do
+    jint <- get i
+    io $ print $ intValue jint * 5
+  where range = [0..n]
+```
+        
+---
+
+class: center, middle
+layout: false
+
+        
+# You can use Eta as a better Java...
+
+--
+
+# with Referential Transparency!
+
+---
+
+# A Peek at the Internals
+        
+```haskell
+java :: (forall c. Java c a) -> IO a
+java (Java m) = IO $ \s ->
+  case m (freshNullObjectToken# s) of
+      (# o1, a #) -> 
+         (# freshStateToken# o1, a #)
+```
+        
+- The `fresh*#` are to ensure the simplifier doesn't float stuff out!
+
+---
+
+layout: true
+        
+# Subtyping
+        
+---
+
+```haskell
+data Iterable a =
+  Iterable (@java.lang.Iterable a)
+  deriving Class
+```
+
+--
+        
+- Reuse any Java action defined on `Iterable`
+
+---
+
+layout: false
+        
+# Type Family: Inherits
+        
+```haskell
+type instance Inherits a :: [*]
+```
+
+--
+
+```haskell
+type instance Inherits (ArrayList a) 
+   = '[Iterable a]
+```
+
+---
+
+layout: true
+        
+# Typeclass: Extends
+
+---
+
+--
+
+```haskell
+class (Class a, Class b) => Extends a b where
+        
+  superCast :: a -> b
+        
+  -- Can throw a ClassCastException
+  unsafeCast :: b -> a
+```
+
+---
+
+```haskell
+instance (Extends' a b ~ Yes) => Extends a b
+```
+
+- `Extends'` is a type family that computes class hierarchy relationships.
+- `Extends'` relies on `Inherits`
+        
+---
+
+layout: false
+        
+# Example: Subtyping
+        
+--
+
+```haskell
+foreign import java unsafe 
+  "@interface iterator" iterator 
+  :: (b <: Iterable a) => Java b (Iterator a)
+```
+
+---
+
+layout: true
+        
+# Extending the Typechecker
+        
+---
+        
+```haskell
+Extends' (List JString) (List a)
+```
+
+- In Java, `a` will be unified to `JString`
+
+---
+
+`Eta.TypeCheck.TcFlatten`
+```haskell
+    helpExtendsIfStuck tc xis
+      | getUnique tc == extendsFamTyConKey
+      , (ty1@(TyConApp tc1 tys1):
+         ty2@(TyConApp tc2 tys2):_) <- xis
+      , tc1 == tc2
+      , any isMetaTyVar $
+          varSetElems 
+            (tyVarsOfTypes tys1 
+             `unionVarSet`
+             tyVarsOfTypes tys2)
+      = TcS.unifyTypes ty1 ty2
+      | otherwise = return ()
+```
+        
+---
+
+layout: false
+class: middle
+
+# But, imports are tiresome!
+
+---
+        
+# Upcoming Solution: Direct Java Interop
+
+```haskell
+import java java.lang.Math
+
+main :: IO ()
+main =
+ java $ do
+   d <- Math.sqrt 25.0
+   io $ print d
+```
+
+- The imports are generated automatically by querying `eta-serv`.
+        
+---
+
+class: middle
+        
+# The Future
+
+---
+
+class: middle
+
+# Direct Java Interop
+        
+---
+
+class: middle
+
+# IDE Support
+
+---
+
+class: middle
+
+# Documentation
+
+---
+
+# Language Extensions
+        
+- UnboxedSums
+- TypeApplications
+- DerivingVia
+- QuantifiedConstraints
+
+---
+
+# New Language Extensions
+        
+- AnonymousRecords
+- RowTypePolymorphism
+
+---
+
+# Collaboration
+        
+- UnboxedSums
+- Mutable Fields
+- Compiler Performance
+
+---
+
+class: center, middle
+layout: false
+
+# Thank You!
+
+---
+    </textarea>
+    <script src="js/remark-latest.min.js">
+    </script>
+    <script>
+     var slideshow = remark.create({
+         highlightLines: true,
+         highlightStyle: 'atom-one-dark'
+     });
+    </script>
+  </body>
+</html>
+
